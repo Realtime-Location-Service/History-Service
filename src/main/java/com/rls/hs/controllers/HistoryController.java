@@ -39,6 +39,3 @@ public class HistoryController {
         return new ResponseEntity<>(locationDataRepository.findWithDateRange(theDomain, userID, startDate, endDate), HttpStatus.OK);
     }
 }
-
-//    @RequestParam("startDate") @DateTimeFormat(pattern="yyyy-MM-DD") Date startDate,
-//    @RequestParam("endDate") @DateTimeFormat(pattern="yyyy-MM-DD") Date endDate
