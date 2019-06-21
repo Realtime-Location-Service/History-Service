@@ -1,6 +1,7 @@
 out
 target
 .idea
+tmp/
 
 # Compiled class file
 *.class
