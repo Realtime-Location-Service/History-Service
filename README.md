@@ -11,8 +11,8 @@ db table.
 
 A `GET` api: `api/v1/history` returns saved locations. Api params:
 
-    userID: String,
-    startDate: Format yyyy-MM-dd HH:mm:ss
-    endDate: Format yyyy-MM-dd HH:mm:ss
+    user_id: String,
+    start_date: Epoch time
+    end_date: Epoch time
  
 `RLS-Referrer` Header must be present.

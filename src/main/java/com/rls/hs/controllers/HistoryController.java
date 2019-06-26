@@ -1,12 +1,12 @@
 package com.rls.hs.controllers;
 
 
-import com.rls.hs.models.LocationData;
+import com.rls.hs.models.DBLocationData;
+import com.rls.hs.models.LocationDataResponse;
 import com.rls.hs.repositories.LocationDataRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -30,12 +30,12 @@ public class HistoryController {
     }
 
     @GetMapping("/history")
-    public ResponseEntity<List<LocationData>> getHistory(@RequestHeader("RLS-Referrer") String theDomain,
-                                                      @RequestParam("userID") String userID,
-                                                      @RequestParam("startDate") @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date startDate,
-                                                      @RequestParam("endDate") @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date endDate
+    public ResponseEntity<LocationDataResponse> getHistory(@RequestHeader("RLS-Referrer") String theDomain,
+                                                           @RequestParam("user_id") String user_id,
+                                                           @RequestParam("start_date") long start_date,
+                                                           @RequestParam("end_date") long end_date
     ) {
-
-        return new ResponseEntity<>(locationDataRepository.findWithDateRange(theDomain, userID, startDate, endDate), HttpStatus.OK);
+        List<DBLocationData> someResults = locationDataRepository.findWithDateRange(theDomain, user_id, new Date(start_date * 1000), new Date(end_date * 1000));
+        return new ResponseEntity<>( new LocationDataResponse(someResults), HttpStatus.OK);
     }
 }

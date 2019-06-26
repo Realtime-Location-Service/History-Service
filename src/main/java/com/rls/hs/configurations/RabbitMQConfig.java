@@ -25,6 +25,8 @@ public class RabbitMQConfig implements RabbitListenerConfigurer {
     private String EXCHANGE_LOCATION_DATA;
     @Value("${application.rabbitmq.dead-queue}")
     private String QUEUE_DEAD_LOCATION_DATA;
+    @Value("${application.rabbitmq.message-ttl}")
+    private int QUEUE_MESSAGE_TTL;
 
     @Autowired
     SmartValidator validator;
@@ -40,9 +42,7 @@ public class RabbitMQConfig implements RabbitListenerConfigurer {
     @Primary
     Queue locationDataQueue() {
         return QueueBuilder.durable(QUEUE_LOCATION_DATA)
-                .withArgument("x-dead-letter-exchange", "")
-                .withArgument("x-dead-letter-routing-key", QUEUE_DEAD_LOCATION_DATA)
-                .withArgument("x-message-ttl", 120000) //if message is not consumed in 2minutes send to DLQ
+                .withArgument("x-message-ttl", QUEUE_MESSAGE_TTL)
                 .build();
     }
 
