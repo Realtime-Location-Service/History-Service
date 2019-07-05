@@ -2,6 +2,7 @@ out
 target
 .idea
 tmp/
+db_data
 docker-compose.yml
 
 # Compiled class file
