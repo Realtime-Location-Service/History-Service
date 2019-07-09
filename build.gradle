@@ -47,7 +47,7 @@ task unpack(type: Copy) {
 }
 
 docker {
-    name "${project.group}/${bootJar.baseName}"
+    name "${project.group}/${bootJar.baseName}:${bootJar.version}"
     copySpec.from(tasks.unpack.outputs).into("dependency")
     buildArgs(['DEPENDENCY': "dependency"])
 }
@@ -59,6 +59,7 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
     // Use MySQL Connector-J
     compile 'mysql:mysql-connector-java'
+    compile "org.flywaydb:flyway-core:5.2.4"
     // User rabbitmq
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-amqp', version: '2.1.6.RELEASE'
 
