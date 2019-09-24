@@ -11,6 +11,6 @@ public interface LocationDataRepository extends JpaRepository<DBLocationData, In
     @Query("SELECT l from DBLocationData l where l.userId in (:someUserIDs) AND LOWER(l.domain) = LOWER(:theDomain)")
     List<DBLocationData> find (String theDomain, String[] someUserIDs);
 
-    @Query("Select l from DBLocationData l where l.userId=:theUserId AND LOWER(l.domain) = LOWER(:theDomain) AND l.clientTimestampUtc >= :theStartTimestamp AND l.clientTimestampUtc <= :theEndTimestamp")
+    @Query("Select l from DBLocationData l where l.userId=:theUserId AND LOWER(l.domain) = LOWER(:theDomain) AND l.clientTimestampUtc >= :theStartTimestamp AND l.clientTimestampUtc <= :theEndTimestamp ORDER BY clientTimestampUtc ASC")
     List<DBLocationData> findWithDateRange(String theDomain, String theUserId, Date theStartTimestamp, Date theEndTimestamp);
 }
